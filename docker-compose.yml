@@ -9,6 +9,8 @@ services:
       - DATABASE_URL=postgresql://academy:academy@db:5432/electricity
     depends_on:
       - db
+    env_file:
+      - ./backend/.env
 
   db:
     image: postgres
