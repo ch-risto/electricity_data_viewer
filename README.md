@@ -64,11 +64,24 @@ Database is running at postgres://localhost:5432/electricity and the database na
 Database consists of one table electricityData.
 
 ## ElectricityData table
-| Column | Description | Type |
-| ----------- | ----------- | ----------- |
-| id | id, primary key | integer |
-| date | date of the data point | DATE |
-| startTime | Starting time of the hour for the data point | TIMESTAMP |
-| productionAmount | Electricity production for the hour MWh/h | NUMERIC(11,5) *NULL* |
-| consumptionAmount | Electricity consumption for the hour kWh | NUMERIC(11,3) *NULL* |
-| hourlyPrice | Electricity price for the hour | NUMERIC(6,3) *NULL* |
+| Column            | Description                                  | Type                 |
+| ----------------- | -------------------------------------------- | -------------------- |
+| id                | id, primary key                              | integer              |
+| date              | date of the data point                       | DATE                 |
+| startTime         | Starting time of the hour for the data point | TIMESTAMP            |
+| productionAmount  | Electricity production for the hour MWh/h    | NUMERIC(11,5) *NULL* |
+| consumptionAmount | Electricity consumption for the hour kWh     | NUMERIC(11,3) *NULL* |
+| hourlyPrice       | Electricity price for the hour               | NUMERIC(6,3) *NULL*  |
+
+# To run project
+## Backend
+```
+docker compose up --build --renew-anon-volumes -d
+```
+
+## Frontend
+```
+cd frontend
+npm install
+npm run dev
+```

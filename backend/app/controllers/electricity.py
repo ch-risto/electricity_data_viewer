@@ -1,15 +1,12 @@
-from typing import List, Type
+from typing import List
 
 from fastapi import APIRouter, HTTPException
-from sqlalchemy import func
 
-from app.models.electricity import ElectricityData
 from app.dtos.electricity import (
     ElectricityDataDto,
     ElectricityDataListByDayDto,
     ElectricityDataSummaryDto,
 )
-from app.db import Db
 from app.services.service_factory import ElectricityService
 import logging
 
