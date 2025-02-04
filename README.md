@@ -30,13 +30,17 @@ Ensure you have the following installed on your system:
    git clone <repository-url>
    cd <repository-folder>
    ```
-2. Start the backend and database using Docker:
+2. Copy the environment configuration file:
+   ```bash
+   cp backend/.env-example backend/.env
+   ```
+3. Start the backend and database using Docker:
    ```bash
    docker compose up --build --renew-anon-volumes -d
    ```
    > Note: This may take a few minutes on the first run.
-3. The backend will now be running at `http://localhost:8000`
-4. You can inspect the database via Adminer at `http://localhost:8088/`
+4. The backend will now be running at `http://localhost:8000`
+5. You can inspect the database via Adminer at `http://localhost:8088/`
    - **Username:** academy  
    - **Password:** academy  
    - **Database Name:** electricity
