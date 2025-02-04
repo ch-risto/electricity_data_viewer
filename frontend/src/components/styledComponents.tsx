@@ -34,7 +34,7 @@ export const Input = styled.input`
     border-radius: 5px;
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 15px;
+    margin: 25px 0;
 `
 
 export const ResponseContainer = styled.div`
@@ -54,11 +54,19 @@ export const StyledList = styled.ul`
 
 export const ListItem = styled.li`
     padding: 3px 10px;
-    margin: 3px 0;
+    margin: 5px 0;
 `
 
 export const Footer = styled.div`
     margin-top: 30px;
     padding: 20px;
     color: #888;
+`
+
+export const Table = styled.table`
+    text-align: left;
+    margin: 25px 0;
+    th, td {
+        padding: 3px 15px;
+    }
 `

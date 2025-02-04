@@ -34,3 +34,7 @@ class ElectricityDataSummaryDto(BaseModel):
 
     class Config:
         from_attributes = True
+
+class ElectricityDateRangeDto(BaseModel):
+    minDate: date
+    maxDate: date

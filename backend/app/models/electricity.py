@@ -10,3 +10,4 @@ class ElectricityData(Base):
     productionamount = Column(Numeric(11, 5), nullable=True)
     consumptionamount = Column(Numeric(11, 3), nullable=True)
     hourlyprice = Column(Numeric(6, 3), nullable=True)
+

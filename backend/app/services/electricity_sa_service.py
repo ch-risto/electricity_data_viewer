@@ -6,7 +6,12 @@ from sqlalchemy import func
 from app.services.electricity_service_base import ElectricityServiceBase
 from app.db import Db
 from app.models.electricity import ElectricityData
+from app.dtos.electricity import ElectricityDateRangeDto
+import traceback
+import logging
 
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 class ElectricitySaService(ElectricityServiceBase):
     def __init__(self, context: Db):
@@ -41,3 +46,18 @@ class ElectricitySaService(ElectricityServiceBase):
             .first()
         )
         return result
+    
+    def get_date_range(self) -> ElectricityDateRangeDto:
+        try:
+            result = (
+                self.context.query(
+                    func.min(ElectricityData.date).label("min_date"),
+                    func.max(ElectricityData.date).label("max_date")
+                ).first()
+            )
+            return ElectricityDateRangeDto(
+                minDate=result.min_date,
+                maxDate=result.max_date
+            )
+        except Exception as e:
+            logger.debug(f"Error fetching {traceback.format_exc(e.__traceback__)}")

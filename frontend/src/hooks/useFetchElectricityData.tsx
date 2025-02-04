@@ -7,7 +7,7 @@ import {
 } from '../api/dataService.tsx'
 
 
-export const useFetchElectricityData = (date: string) => {
+export const useFetchElectricityData = (date: string | null) => {
   const [data, setData] = useState<ElectricityDataList | null>(null);
   const [summaryData, setSummaryData] = useState<ElectricityDataSummary | null>(null);
   const [loading, setLoading] = useState(false);
@@ -16,6 +16,8 @@ export const useFetchElectricityData = (date: string) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!date) return;
+
       setLoading(true);
       setError(false);
       setErrorMessage(null);
@@ -25,13 +27,13 @@ export const useFetchElectricityData = (date: string) => {
       try {
         const fetchedData = await fetchAllDataByDate(date);
         const fetchedSummaryData = await fetchSummaryDataByDate(date);
-        console.log("app.tsx " + fetchedData);
+        console.log("useFetchElectricityData", fetchedData);
 
         setData(fetchedData);
         setSummaryData(fetchedSummaryData);
 
       } catch (error: unknown) {
-        console.error('Error loading data: ' + error);
+        console.error('Error loading data:', error);
         setError(true);
         if ((error as Error).message === 'Data for the day was not found') {
           setErrorMessage("Data for the day was not found")

@@ -19,6 +19,11 @@ export interface ElectricityDataSummary {
     avg_price: number | null;
 }
 
+export interface DateRange {
+    minDate: string | 'minimiPvm';
+    maxDate: string | 'maximiPvm';
+}
+
 export const fetchAllDataByDate = async (date: string): Promise<ElectricityDataList> => {
     try {
         console.log("Trying to fetch data")
@@ -43,6 +48,9 @@ export const fetchSummaryDataByDate = async (date: string): Promise<ElectricityD
     try {
         const response = await fetch(`${BASE_URL}/electricity_summary/${date}`);
         if (!response.ok) {
+            if (response.status === 404) {
+                throw new Error('Data for the day was not found')
+            }
             throw new Error('Network response was not ok');
         }
         const data: ElectricityDataSummary = await response.json();
@@ -54,4 +62,17 @@ export const fetchSummaryDataByDate = async (date: string): Promise<ElectricityD
     }
 }
 
-//   fetchAllDataByDate();
+export const fetchMinMaxDaterange = async (): Promise<DateRange> => {
+    try {
+        const response = await fetch(`${BASE_URL}/date_range`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data: DateRange = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error)
+        throw error;
+    }
+}

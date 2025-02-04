@@ -6,6 +6,7 @@ from app.dtos.electricity import (
     ElectricityDataDto,
     ElectricityDataListByDayDto,
     ElectricityDataSummaryDto,
+    ElectricityDateRangeDto
 )
 from app.services.service_factory import ElectricityService
 import logging
@@ -51,6 +52,15 @@ async def get_summary_by_date(
         avg_price=result.avg_price,
     )
 
+@router.get("/date_range")
+async def get_date_range(service: ElectricityService) -> ElectricityDateRangeDto:
+    result = service.get_date_range()
+    if not result:
+        raise HTTPException(
+            detail="Electricity information for that day not found", status_code=404
+        )
+    
+    return ElectricityDateRangeDto(minDate=result.minDate, maxDate=result.maxDate)
 
 # Routeja mitä tarvitaan:
 # Longest consecutive time in hours, when electricity price has been negative, per day
