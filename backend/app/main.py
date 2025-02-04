@@ -5,7 +5,6 @@ from app.controllers import electricity
 
 app = FastAPI()
 
-# TODO: kato nää, tarviiko mitä kaikkii
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

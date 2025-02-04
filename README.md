@@ -1,87 +1,76 @@
-# dev-academy-spring-2025-exercise
+# Electricity Data Viewer
 
-This is the pre-assignment for Solita Dev Academy Finland January 2025. But if you’re here just purely out of curiosity, feel free to snatch the idea and make your own app just for the fun of it!
+This project is a web application that displays electricity production, consumption, and price data. The application consists of a **FastAPI** backend and a **React** frontend. It fetches data from a **PostgreSQL** database running in Docker.
 
-Let's imagine that you have received an interesting project offer to create a UI and a backend service for displaying data from electricity production, consumption and prices. 
-The exercise uses data that is owned by Fingrid and combines that with electricity price data from porssisahko.net. 
+## Features
 
-# The exercise
-Create a web application that uses a backend service to fetch the data. Backend can be made with any technology. We at Solita use for example (not in preference order) Java/Kotlin/C#/TypeScript but you are free to choose any other technology as well. 
+### Daily Statistics List (Implemented Features)
+- Total electricity consumption per day
+- Total electricity production per day
+- Average electricity price per day
+- Longest consecutive time in hours when electricity price has been negative per day
+- Data can be fetched based on the selected date
 
-You are provided with Docker setup, with contains a PostgreSQL database with all the necessary data for the exercise. 
+## Technologies Used
+- **Backend:** FastAPI, SQLAlchemy, PostgreSQL
+- **Frontend:** React, TypeScript, Styled Components
+- **Database:** PostgreSQL (running in Docker)
+- **Containerization:** Docker & Docker Compose
 
-You can also freely choose the frontend technologies to use. The important part is to give good instructions on how to build and run the project. 
+## Running the Project
 
-Please return the exercise as a link to github repository. 
+### Prerequisites
+Ensure you have the following installed on your system:
+- [Docker Desktop](https://docs.docker.com/desktop/)
+- [Node.js & npm](https://nodejs.org/)
 
-# Stuff to do 
+### Backend Setup
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+   ```
+2. Start the backend and database using Docker:
+   ```bash
+   docker compose up --build --renew-anon-volumes -d
+   ```
+   > Note: This may take a few minutes on the first run.
+3. The backend will now be running at `http://localhost:8000`
+4. You can inspect the database via Adminer at `http://localhost:8088/`
+   - **Username:** academy  
+   - **Password:** academy  
+   - **Database Name:** electricity
 
-## Daily statistics list (recommended features)
-- Total electricity consumption per day 
-- Total electricity production per day 
-- Average electricity price per day 
-- Longest consecutive time in hours, when electricity price has been negative, per day 
+### Frontend Setup
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the frontend development server:
+   ```bash
+   npm run dev
+   ```
+4. The frontend will now be available at `http://localhost:5173`
 
-## Additional features for daily statistics list
-- Pagination 
-- Ordering per column 
-- Searching 
-- Filtering 
+## API Endpoints
+The FastAPI documentation for the backend endpoints can be accessed at:
+Swagger UI: http://localhost:8000/docs#/
 
-## Other additional features
-- Single day view 
--- Total electricity consumption per day 
--- Total electricity production per day 
--- Average electricity price per day 
--- Hour with most electricity consumption compared to production 
--- Cheapest electricity hours for the day 
-- Graph visualisations 
-
-## Surprise us with 
-- Running backend in Docker 
-- Running backend in Cloud 
-- Implement E2E tests 
-
-# Instructions for running the database
-1. Install Docker Desktop on your computer (https://docs.docker.com/desktop/)
-2. Clone this repository
-3. On command line under this folder run:
-
+### Fetch electricity data for a specific date
+```http
+GET /electricity/by_date/YYYY-MM-DD
 ```
-docker compose up --build --renew-anon-volumes -d
-```
-
-Please note that running that might take couple of minutes
-
-4. Docker setup also comes with Adminer UI, where you can check your database contents at http://localhost:8088/
-5. Log into Adminer with following information (password: academy):
-
-![alt text](login.png)
-
-Database is running at postgres://localhost:5432/electricity and the database name is electricity. Database comes with user academy (password: academy).
-
-# Database structure
-Database consists of one table electricityData.
-
-## ElectricityData table
-| Column            | Description                                  | Type                 |
-| ----------------- | -------------------------------------------- | -------------------- |
-| id                | id, primary key                              | integer              |
-| date              | date of the data point                       | DATE                 |
-| startTime         | Starting time of the hour for the data point | TIMESTAMP            |
-| productionAmount  | Electricity production for the hour MWh/h    | NUMERIC(11,5) *NULL* |
-| consumptionAmount | Electricity consumption for the hour kWh     | NUMERIC(11,3) *NULL* |
-| hourlyPrice       | Electricity price for the hour               | NUMERIC(6,3) *NULL*  |
-
-# To run project
-## Backend
-```
-docker compose up --build --renew-anon-volumes -d
-```
-
-## Frontend
-```
-cd frontend
-npm install
-npm run dev
+Response Example:
+```json
+{
+  "date": "2023-05-05",
+  "total_consumption": 15000.123,
+  "total_production": 14000.456,
+  "avg_price": 0.067,
+  "longest_negative_price_hours": 3
+}
 ```

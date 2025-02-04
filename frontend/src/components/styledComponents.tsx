@@ -12,12 +12,6 @@ export const Body = styled.div`
     min-height: 100vh;
 `
 
-export const Title = styled.h1`
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 3.2em;
-    line-height: 1.1;
-`
-
 export const Logo = styled.img`
     height: 6em;
     padding: 1.5em;
@@ -30,15 +24,17 @@ export const Logo = styled.img`
     }
 `
 
+export const Title = styled.h1`
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3.2em;
+    line-height: 1.1;
+`
+
 export const Input = styled.input`
     border-radius: 5px;
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif;
     margin: 25px 0;
-`
-
-export const ResponseContainer = styled.div`
-    text-align: center;
 `
 
 export const Response = styled.div`
@@ -47,26 +43,19 @@ export const Response = styled.div`
     size: 35rem;
 `
 
-export const StyledList = styled.ul`
-    list-style: none;
-    padding: 0;
+export const ResponseContainer = styled.div`
+    text-align: left;
 `
 
-export const ListItem = styled.li`
-    padding: 3px 10px;
-    margin: 5px 0;
+export const Table = styled.table`
+    margin: 25px 0;
+    th, td {
+        padding: 3px 15px;
+    }
 `
 
 export const Footer = styled.div`
     margin-top: 30px;
     padding: 20px;
     color: #888;
-`
-
-export const Table = styled.table`
-    text-align: left;
-    margin: 25px 0;
-    th, td {
-        padding: 3px 15px;
-    }
 `

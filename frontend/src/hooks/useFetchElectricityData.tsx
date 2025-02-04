@@ -32,8 +32,6 @@ export const useFetchElectricityData = (date: string | null) => {
         const fetchedData = await fetchAllDataByDate(date);
         const fetchedSummaryData = await fetchSummaryDataByDate(date);
         const fetchedNegativePricePeriod = await fetchNegativePricePeriod(date);
-        console.log("negativePricePeriod", fetchedNegativePricePeriod);
-        console.log("useFetchElectricityData", fetchedData);
 
         setData(fetchedData);
         setSummaryData(fetchedSummaryData);

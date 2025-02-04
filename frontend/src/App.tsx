@@ -1,7 +1,7 @@
 
 import { useState } from 'react'
 import chLogo from '/ch_white.png'
-import { Body, Input, Logo, Title, ResponseContainer, Response, Footer, StyledList, ListItem, Table } from './components/styledComponents'
+import { Body, Input, Logo, Title, ResponseContainer, Response, Footer, Table } from './components/styledComponents'
 import { useFetchElectricityData } from './hooks/useFetchElectricityData.tsx'
 import { useFetchMinMaxDate } from './hooks/useFetchMinMaxDate.tsx';
 import { formatDateFromDate, formatTimeFromDatetime } from './utils/dateUtils.tsx';
@@ -37,11 +37,9 @@ function App() {
       {error && errorMessage && <Response>{errorMessage}</Response>}
 
       {data && summaryData ? (
-        // TODO: tsekkaile tyylittelyt
         <ResponseContainer>
-          <h2>Data for {formatDateFromDate(data.date)}</h2>
           <Table>
-            <tr><th>Summary for the day</th></tr>
+            <tr><th>Summary for the day {formatDateFromDate(data.date)}</th></tr>
             <tr>
               <th>Total consumption:</th><td>{kWhToMWh(summaryData.total_consumption)}</td>
             </tr>

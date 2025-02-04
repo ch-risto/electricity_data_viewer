@@ -12,7 +12,6 @@ export const useFetchMinMaxDate = () => {
 
             try {
                 const fetchedDateRange = await fetchMinMaxDaterange();
-                console.log("daterange:", fetchedDateRange)
                 setDateRange({
                     minDate: formatDateFromDate(fetchedDateRange.minDate),
                     maxDate: formatDateFromDate(fetchedDateRange.maxDate)
