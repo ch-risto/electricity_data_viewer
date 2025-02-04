@@ -35,6 +35,13 @@ class ElectricityDataSummaryDto(BaseModel):
     class Config:
         from_attributes = True
 
+
+class NegativePricePeriodDto(BaseModel):
+    start_time: Optional[datetime] = None
+    duration_hours: Optional[int] = None
+    avg_price: Optional[float] = None
+
+
 class ElectricityDateRangeDto(BaseModel):
     minDate: date
     maxDate: date

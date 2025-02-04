@@ -5,11 +5,12 @@ import { Body, Input, Logo, Title, ResponseContainer, Response, Footer, StyledLi
 import { useFetchElectricityData } from './hooks/useFetchElectricityData.tsx'
 import { useFetchMinMaxDate } from './hooks/useFetchMinMaxDate.tsx';
 import { formatDateFromDate, formatTimeFromDatetime } from './utils/dateUtils.tsx';
+import { kWhToMWh } from './utils/electricityUtils.tsx';
 
 function App() {
   const [date, setDate] = useState<string | null>(null);
 
-  const { data, summaryData, loading, error, errorMessage } = useFetchElectricityData(date);
+  const { data, summaryData, negativePricePeriod, loading, error, errorMessage } = useFetchElectricityData(date);
   const { dateRange } = useFetchMinMaxDate();
 
   return (
@@ -39,20 +40,43 @@ function App() {
         // TODO: tsekkaile tyylittelyt
         <ResponseContainer>
           <h2>Data for {formatDateFromDate(data.date)}</h2>
-          <div>
-            <strong>Summary:</strong> <br />
-            <Table>
-              <tr>
-                <th>Total consumption</th><td>{Number(summaryData.total_consumption).toFixed(2) ?? "-"} kWh </td>
-              </tr>
-              <tr>
-                <th>Total production:</th><td>{Number(summaryData.total_production).toFixed(2) ?? "-"} kWh </td>
-              </tr>
-              <tr>
-                <th>Average hourly price:</th><td>{Number(summaryData.avg_price).toFixed(2)} €</td>
-              </tr>
-            </Table>
-          </div>
+          <Table>
+            <tr><th>Summary for the day</th></tr>
+            <tr>
+              <th>Total consumption:</th><td>{kWhToMWh(summaryData.total_consumption)}</td>
+            </tr>
+            <tr>
+              <th>Total production:</th><td>{kWhToMWh(summaryData.total_production)}</td>
+            </tr>
+            <tr>
+              <th>Average hourly price:</th><td>{Number(summaryData.avg_price).toFixed(2)} €</td>
+            </tr>
+            {negativePricePeriod ? (
+              negativePricePeriod.duration_hours && negativePricePeriod.duration_hours > 0 ? (
+                <>
+                  <tr>
+                    <td>
+                      Longest period of negative price for the day was {negativePricePeriod.duration_hours} hours
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      starting at {formatTimeFromDatetime(negativePricePeriod.start_time)} and average of {negativePricePeriod.avg_price ? Number(negativePricePeriod.avg_price).toFixed(2) : 0}€
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+
+                    </td>
+                  </tr>
+                </>
+              ) : (
+                <tr>
+                  <td>There were no negative electricity prices on this day</td>
+                </tr>
+              )
+            ) : null}
+          </Table>
           <Table>
             <thead>
               <tr>
@@ -66,9 +90,9 @@ function App() {
               {data.data.map((item, index) => (
                 <tr key={index}>
                   <td>{formatTimeFromDatetime(item.starttime)}</td>
-                  <td>{Number(item.productionamount).toFixed(2) ?? "-"} kWh</td>
-                  <td>{Number(item.consumptionamount).toFixed(2) ?? "-"} kWh</td>
-                  <td>{Number(item.hourlyprice).toFixed(2)} €</td>
+                  <td>{kWhToMWh(item.productionamount)}</td>
+                  <td>{kWhToMWh(item.consumptionamount)}</td>
+                  <td>{Number(item.hourlyprice).toFixed(2)}€</td>
                 </tr>
               ))}
             </tbody>

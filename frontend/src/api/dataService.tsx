@@ -19,6 +19,12 @@ export interface ElectricityDataSummary {
     avg_price: number | null;
 }
 
+export interface NegativePricePeriod {
+    start_time: string | null;
+    duration_hours: number | null;
+    avg_price: number | null;
+}
+
 export interface DateRange {
     minDate: string | 'minimiPvm';
     maxDate: string | 'maximiPvm';
@@ -58,6 +64,23 @@ export const fetchSummaryDataByDate = async (date: string): Promise<ElectricityD
         return data;
     } catch (error) {
         console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+export const fetchNegativePricePeriod = async (date: string): Promise<NegativePricePeriod> => {
+    try {
+        const response = await fetch(`${BASE_URL}/negative_price_period/${date}`);
+        if (!response.ok) {
+            if (response.status === 404) {
+                throw new Error('Data for the day was not found')
+            }
+            throw new Error('Network response was not ok');
+        }
+        const data: NegativePricePeriod = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetchin negative price data:', error)
         throw error;
     }
 }

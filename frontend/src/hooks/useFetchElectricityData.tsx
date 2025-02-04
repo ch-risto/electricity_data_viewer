@@ -3,13 +3,16 @@ import {
   fetchAllDataByDate,
   ElectricityDataList,
   ElectricityDataSummary,
-  fetchSummaryDataByDate
+  NegativePricePeriod,
+  fetchSummaryDataByDate,
+  fetchNegativePricePeriod
 } from '../api/dataService.tsx'
 
 
 export const useFetchElectricityData = (date: string | null) => {
   const [data, setData] = useState<ElectricityDataList | null>(null);
   const [summaryData, setSummaryData] = useState<ElectricityDataSummary | null>(null);
+  const [negativePricePeriod, setNegativePricePeriod] = useState<NegativePricePeriod | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -23,14 +26,18 @@ export const useFetchElectricityData = (date: string | null) => {
       setErrorMessage(null);
       setData(null);
       setSummaryData(null);
+      setNegativePricePeriod(null);
 
       try {
         const fetchedData = await fetchAllDataByDate(date);
         const fetchedSummaryData = await fetchSummaryDataByDate(date);
+        const fetchedNegativePricePeriod = await fetchNegativePricePeriod(date);
+        console.log("negativePricePeriod", fetchedNegativePricePeriod);
         console.log("useFetchElectricityData", fetchedData);
 
         setData(fetchedData);
         setSummaryData(fetchedSummaryData);
+        setNegativePricePeriod(fetchedNegativePricePeriod)
 
       } catch (error: unknown) {
         console.error('Error loading data:', error);
@@ -42,6 +49,7 @@ export const useFetchElectricityData = (date: string | null) => {
         }
         setData(null);
         setSummaryData(null);
+        setNegativePricePeriod(null);
       } finally {
         setLoading(false)
       }
@@ -50,5 +58,5 @@ export const useFetchElectricityData = (date: string | null) => {
     fetchData();
   }, [date]);
 
-  return { data, summaryData, loading, error, errorMessage };
+  return { data, summaryData, negativePricePeriod, loading, error, errorMessage };
 };
