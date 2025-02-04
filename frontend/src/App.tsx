@@ -8,8 +8,10 @@ import { formatDateFromDate, formatTimeFromDatetime } from './utils/dateUtils.ts
 import { kWhToMWh } from './utils/electricityUtils.tsx';
 
 function App() {
+  // state to hold selected date for fetching data
   const [date, setDate] = useState<string | null>(null);
 
+  // Custom hooks to fetch electricity data
   const { data, summaryData, negativePricePeriod, loading, error, errorMessage } = useFetchElectricityData(date);
   const { dateRange } = useFetchMinMaxDate();
 

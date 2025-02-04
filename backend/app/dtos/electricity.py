@@ -3,8 +3,9 @@ from pydantic import BaseModel
 from datetime import date, datetime
 from decimal import Decimal
 
+# Data Transfer Objects (DTO) for electricity datas
 
-#
+
 class ElectricityDataDto(BaseModel):
     # id: int
     # date: date

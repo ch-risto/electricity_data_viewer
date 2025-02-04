@@ -1,3 +1,4 @@
+// Function to convert kWH to MWH and format numbers
 export const kWhToMWh = (kWh: number | null): string => {
     if (!kWh) return "-";
     const mWh = kWh / 1000;

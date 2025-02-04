@@ -18,6 +18,7 @@ class ElectricitySaService(ElectricityServiceBase):
     def __init__(self, context: Db):
         self.context = context
 
+    # Getch all electricity data with limit
     def get_all(self, limit: int = 100) -> List[ElectricityData]:
         result = (
             self.context.query(ElectricityData)
@@ -27,6 +28,7 @@ class ElectricitySaService(ElectricityServiceBase):
         )
         return result
 
+    # Fetch electricity data for a specific date
     def get_by_date(self, date: date) -> List[ElectricityData]:
         result = (
             self.context.query(ElectricityData)
@@ -36,6 +38,7 @@ class ElectricitySaService(ElectricityServiceBase):
         )
         return result
 
+    # Get a summary of electricity consumption, production and price for a specific date
     def get_summary_by_date(self, date: date) -> ElectricityData:
         result = (
             self.context.query(
@@ -48,22 +51,24 @@ class ElectricitySaService(ElectricityServiceBase):
         )
         return result
 
+    # Find the longest period of negative electricity price for a given date
     def get_longest_negative_price_period(
         self, date: date
     ) -> Optional[NegativePricePeriodDto]:
         try:
+            # Fetch all data for the given date
             data = (
                 self.context.query(ElectricityData)
                 .filter(ElectricityData.date == date)
                 .order_by(ElectricityData.starttime)
                 .all()
             )
-            logger.debug(f"kyselyssä: {data}")
 
+            # If there is no data, return None
             if not data:
                 return None
 
-            max_sequence = 0
+            # Variables to track the longest negative price period
             current_sequence = 0
             sequence_start = None
             prices_sum = 0
@@ -72,24 +77,30 @@ class ElectricitySaService(ElectricityServiceBase):
             best_sequence_length = 0
             best_sequence_avg_price = 0
 
+            # Loop through the data to find the longest negative price period
             for item in data:
-                logger.debug(f"item {item}, hourlyprice {item.hourlyprice}")
+                # Check if price is negative
                 if item.hourlyprice and item.hourlyprice < 0:
-                    logger.debug("chech, negative hourlyprice")
                     if current_sequence == 0:
+                        # Mark the start time of the sequence
                         sequence_start = item.starttime
+                    # Increment the current negative price period length
                     current_sequence += 1
+                    # Add to the sum of negative prices
                     prices_sum += item.hourlyprice
                 else:
+                    # if sequence ends, check if it's the longest swquence
                     if current_sequence > best_sequence_length:
                         best_sequence_length = current_sequence
                         best_sequence_start = sequence_start
                         best_sequence_avg_price = (
                             prices_sum / current_sequence if current_sequence > 0 else 0
                         )
+                    # Reset current sequence and price sum
                     current_sequence = 0
                     prices_sum = 0
 
+            # Final check if the last sequence is the longest
             if current_sequence > best_sequence_length:
                 best_sequence_length = current_sequence
                 best_sequence_start = sequence_start
@@ -97,6 +108,7 @@ class ElectricitySaService(ElectricityServiceBase):
                     prices_sum / current_sequence if current_sequence > 0 else 0
                 )
 
+            # Return the longest negative price period as a DTO
             return NegativePricePeriodDto(
                 start_time=best_sequence_start,
                 duration_hours=best_sequence_length,
@@ -107,6 +119,7 @@ class ElectricitySaService(ElectricityServiceBase):
             logger.error(f"Error calculating negative price period: {str(e)}")
             return None
 
+    # Fetch the date range (min and max date) of the electricity data
     def get_date_range(self) -> ElectricityDateRangeDto:
         try:
             result = self.context.query(

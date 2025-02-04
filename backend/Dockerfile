@@ -1,15 +1,15 @@
-# Peruskuva
+# Base image
 FROM python:3.11
 
-# Työhakemisto
+# Set the working directory inside the container
 WORKDIR /app
 
-# Kopioi riippuvuudet ja asenna ne
+# Copies the dependencies file and installs the required packages
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Kopioi sovellus
+# Copies the applikation code into the container
 COPY . .
 
-# Määritä komento
+# Sets command to run the FastAPI application using uvicorn
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

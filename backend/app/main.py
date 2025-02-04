@@ -3,22 +3,29 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.controllers import electricity
 
+# Initializes the FastAPI application
 app = FastAPI()
 
+# Adds CORS middleware to allow cross-origin requests
 app.add_middleware(
     CORSMiddleware,
+    # Allows all origins, can be restricted for security (e.g. ["http://localhost:5173"])
     allow_origins=[
         "*"
-    ],  # Voit rajoittaa alkuperän halutuksi, esim. ["http://localhost:5173"]
+    ],
     allow_credentials=True,
-    allow_methods=["*"],  # Tämä sallii kaikki HTTP-metodit (GET, POST, PUT jne.)
-    allow_headers=["*"],  # Tämä sallii kaikki otsakkeet
+    # Allows all HTTP methods (GET, POST, PUT, etc.)
+    allow_methods=["*"],
+    # Allows all headers
+    allow_headers=["*"],
 )
 
 
+# Defines the root endpoint, returning a simple message
 @app.get("/")
 async def root():
     return {"message": "Hello, React!"}
 
 
+#Include Electricity router for handling electricity-related routes
 app.include_router(electricity.router)

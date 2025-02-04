@@ -1,12 +1,14 @@
+// Format date string to Finnish locale date string
 export const formatDateFromDate = (dateStr: string): string => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('fi-FI', {
         day: 'numeric',
-        month: '2-digit',
+        month: 'numeric',
         year: 'numeric'
     });
 };
 
+// Format datetime string to date string, if datetimeStr is null, returns "-"
 export const formatDateFromDatetime = (datetimeStr: string | null): string => {
     if (!datetimeStr) return "-";
     const date = new Date(datetimeStr);
@@ -14,6 +16,7 @@ export const formatDateFromDatetime = (datetimeStr: string | null): string => {
     return formatDateFromDate(dateStr);
 };
 
+// Function to format a datetime string to time string, if datetimeStr is null, returns "-"
 export const formatTimeFromDatetime = (datetimeStr: string | null): string => {
     if (!datetimeStr) return "-";
     const date = new Date(datetimeStr);

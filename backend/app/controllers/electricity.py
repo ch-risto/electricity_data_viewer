@@ -15,17 +15,20 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+# define API router for electricity-related endpoints
 router = APIRouter(prefix="/electricity", tags=["electricity data"])
 
 
 @router.get("/limit/{limit}")
-async def get_all(limit, service: ElectricityService) -> List[ElectricityDataDto]:
+async def get_all(limit: int, service: ElectricityService) -> List[ElectricityDataDto]:
+    """Fetches limitet number of electricity data entries."""
     result = service.get_all(limit)
     return [ElectricityDataDto.model_validate(r) for r in result]
 
 
 @router.get("/by_date/{date}")
 async def get_by_date(date, service: ElectricityService) -> ElectricityDataListByDayDto:
+    """Fethces electricity data for a specific date."""
     result = service.get_by_date(date)
     if not result:
         raise HTTPException(
@@ -40,6 +43,7 @@ async def get_by_date(date, service: ElectricityService) -> ElectricityDataListB
 async def get_summary_by_date(
     date, service: ElectricityService
 ) -> ElectricityDataSummaryDto:
+    """Fetches total consumption, total production and average price for specific date."""
     result = service.get_summary_by_date(date)
     if not result:
         raise HTTPException(
@@ -58,9 +62,8 @@ async def get_summary_by_date(
 async def get_longest_negative_price_period(
     date, service: ElectricityService
 ) -> NegativePricePeriodDto:
-    logger.debug(f"negismesta")
+    """Finds the longest period when electricity prices were negative."""
     result = service.get_longest_negative_price_period(date)
-    logger.debug(f"no negative info result {result}")
     if not result:
         raise HTTPException(
             detail="Price information for that day not found", status_code=404
@@ -75,6 +78,7 @@ async def get_longest_negative_price_period(
 
 @router.get("/date_range")
 async def get_date_range(service: ElectricityService) -> ElectricityDateRangeDto:
+    """Retrieves the available date range for electricity data."""
     result = service.get_date_range()
     if not result:
         raise HTTPException(
