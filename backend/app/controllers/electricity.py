@@ -58,7 +58,7 @@ async def get_summary_by_date(
 async def get_longest_negative_price_period(
     date, service: ElectricityService
 ) -> NegativePricePeriodDto:
-    logger.debug(f"negismesta")
+    logger.debug("negismesta")
     result = service.get_longest_negative_price_period(date)
     logger.debug(f"no negative info result {result}")
     if not result:

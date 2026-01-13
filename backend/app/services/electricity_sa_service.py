@@ -63,7 +63,6 @@ class ElectricitySaService(ElectricityServiceBase):
             if not data:
                 return None
 
-            max_sequence = 0
             current_sequence = 0
             sequence_start = None
             prices_sum = 0
@@ -75,7 +74,7 @@ class ElectricitySaService(ElectricityServiceBase):
             for item in data:
                 logger.debug(f"item {item}, hourlyprice {item.hourlyprice}")
                 if item.hourlyprice and item.hourlyprice < 0:
-                    logger.debug("chech, negative hourlyprice")
+                    logger.debug("check, negative hourlyprice")
                     if current_sequence == 0:
                         sequence_start = item.starttime
                     current_sequence += 1
