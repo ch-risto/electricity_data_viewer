@@ -3,15 +3,16 @@ from pydantic import BaseModel
 from datetime import date, datetime
 from decimal import Decimal
 
+# Data Transfer Objects (DTO) for electricity datas
 
-#
+
 class ElectricityDataDto(BaseModel):
     # id: int
     # date: date
     starttime: Optional[datetime] = None
-    productionamount: Optional[float] = None
-    consumptionamount: Optional[float] = None
-    hourlyprice: Optional[float] = None
+    productionamount: Optional[Decimal] = None
+    consumptionamount: Optional[Decimal] = None
+    hourlyprice: Optional[Decimal] = None
 
     class Config:
         from_attributes = True
@@ -25,7 +26,6 @@ class ElectricityDataListByDayDto(BaseModel):
         from_attributes = True
 
 
-# TODO: be consistent with types, find out if decimal or float is better (or if it makes any difference)
 class ElectricityDataSummaryDto(BaseModel):
     date: date
     total_consumption: Optional[Decimal] = None
@@ -39,7 +39,7 @@ class ElectricityDataSummaryDto(BaseModel):
 class NegativePricePeriodDto(BaseModel):
     start_time: Optional[datetime] = None
     duration_hours: Optional[int] = None
-    avg_price: Optional[float] = None
+    avg_price: Optional[Decimal] = None
 
 
 class ElectricityDateRangeDto(BaseModel):

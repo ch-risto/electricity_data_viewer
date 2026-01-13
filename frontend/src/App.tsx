@@ -19,6 +19,7 @@ import {
 import { kWhToMWh } from "./utils/electricityUtils.tsx";
 
 function App() {
+  // state to hold selected date for fetching data
   const [date, setDate] = useState<string | null>(null);
 
   const {
@@ -56,12 +57,10 @@ function App() {
       {error && errorMessage && <Response>{errorMessage}</Response>}
 
       {data && summaryData ? (
-        // TODO: tsekkaile tyylittelyt
         <ResponseContainer>
-          <h2>Data for {formatDateFromDate(data.date)}</h2>
           <Table>
             <tr>
-              <th>Summary for the day</th>
+              <th>Summary for the day {formatDateFromDate(data.date)}</th>
             </tr>
             <tr>
               <th>Total consumption:</th>

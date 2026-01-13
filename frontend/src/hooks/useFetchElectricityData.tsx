@@ -8,7 +8,9 @@ import {
   fetchNegativePricePeriod,
 } from "../api/dataService.tsx";
 
+// Hook to fetch electricity data for a given date
 export const useFetchElectricityData = (date: string | null) => {
+  // State variables for fetchet data
   const [data, setData] = useState<ElectricityDataList | null>(null);
   const [summaryData, setSummaryData] = useState<ElectricityDataSummary | null>(
     null,
@@ -20,9 +22,12 @@ export const useFetchElectricityData = (date: string | null) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    // Async function to fetch data when 'date' is provided
     const fetchData = async () => {
+      // Exit if date is not provided (only when user picks the date)
       if (!date) return;
 
+      // Set Loading true and clear or reset else
       setLoading(true);
       setError(false);
       setErrorMessage(null);
@@ -31,12 +36,12 @@ export const useFetchElectricityData = (date: string | null) => {
       setNegativePricePeriod(null);
 
       try {
+        // Fetch data for date, summary and negative price period data for the given date
         const fetchedData = await fetchAllDataByDate(date);
         const fetchedSummaryData = await fetchSummaryDataByDate(date);
         const fetchedNegativePricePeriod = await fetchNegativePricePeriod(date);
-        console.log("negativePricePeriod", fetchedNegativePricePeriod);
-        console.log("useFetchElectricityData", fetchedData);
 
+        // Set fetchet data to variables
         setData(fetchedData);
         setSummaryData(fetchedSummaryData);
         setNegativePricePeriod(fetchedNegativePricePeriod);
@@ -56,9 +61,12 @@ export const useFetchElectricityData = (date: string | null) => {
       }
     };
 
+    // Call fetchData whenever the 'date' value changes
     fetchData();
+    // Dependency array
   }, [date]);
 
+  // Returns fetched variables
   return {
     data,
     summaryData,
