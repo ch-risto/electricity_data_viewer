@@ -36,4 +36,4 @@ jobs:
               working-directory: ./backend
               run: pytest
               env:
-                DATABASE_URL: postgresql://test:test@localhost:5432/testdb
+                SQLALCHEMY_DATABASE_URL: sqlite:///:memory

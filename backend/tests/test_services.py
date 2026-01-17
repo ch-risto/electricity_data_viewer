@@ -4,7 +4,7 @@ from app.models.electricity import ElectricityData
 
 
 class TestGetAllMethod:
-    def test_get_all_with_default_limit(self, service, setup_sample_data):
+    def test_get_all_with_default_limit(self, service):
         """Test that get_all() fetches 100 records by default"""
 
         result = service.get_all(100)
@@ -13,7 +13,7 @@ class TestGetAllMethod:
         assert result[0].id == 1
         assert result[1].id == 2
 
-    def test_get_all_returns_empty_list(self, service, setup_empty_data):
+    def test_get_all_returns_empty_list(self, service):
         """Test that get_all() returns empty list when no data is present"""
 
         result = service.get_all(100)
