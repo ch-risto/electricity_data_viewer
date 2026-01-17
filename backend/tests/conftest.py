@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path)
 
-from unittest.mock import Base, Mock
+from unittest.mock import Mock
+from app.models.base import Base
 from sqlalchemy import create_engine
 from app.models.electricity import ElectricityData
 from app.services.electricity_sa_service import ElectricitySaService
