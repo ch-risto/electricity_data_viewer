@@ -93,7 +93,7 @@ Response Example:
 
 ## 2026 pre-assignment
 
-As the 2026 pre-assignment was the same as last year, I decided to take this as an learning opportunity to improve my skills in testing and cloud infrastructures. I also improved DevOps implementing GitHub Workflows for both backend and frontend.
+As the 2026 pre-assignment was the same as last year, I decided to take this as an learning opportunity to improve my skills in testing. I also improved DevOps implementing GitHub Workflows for both backend and frontend.
 
 ### CI/CD
 
