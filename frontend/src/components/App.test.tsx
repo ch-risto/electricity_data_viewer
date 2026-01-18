@@ -7,6 +7,8 @@ import { fetchMinMaxDaterange } from "../api/dataService";
 vi.mock("../api/dataService", () => ({
   fetchAllDataByDate: vi.fn(),
   fetchMinMaxDaterange: vi.fn(),
+  fetchSummaryDataByDate: vi.fn(),
+  fetchNegativePricePeriod: vi.fn(),
 }));
 
 describe("App component", () => {
@@ -18,6 +20,8 @@ describe("App component", () => {
     vi.mocked(fetchMinMaxDaterange).mockResolvedValue({
       minDate: "2024-01-01",
       maxDate: "2024-12-31",
+      minDateRaw: "2024-01-01",
+      maxDateRaw: "2024-12-31",
     });
     render(<App />);
     await waitFor(() => {
@@ -29,6 +33,8 @@ describe("App component", () => {
     vi.mocked(fetchMinMaxDaterange).mockResolvedValue({
       minDate: "2024-01-01",
       maxDate: "2024-12-31",
+      minDateRaw: "2024-01-01",
+      maxDateRaw: "2024-12-31",
     });
     render(<App />);
     await waitFor(() => {

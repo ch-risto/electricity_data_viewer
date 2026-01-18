@@ -14,6 +14,8 @@ describe("useFetchMinMaxDate", () => {
     vi.mocked(fetchMinMaxDaterange).mockResolvedValue({
       minDate: "2024-01-01",
       maxDate: "2024-12-31",
+      minDateRaw: "2024-01-01",
+      maxDateRaw: "2024-12-31",
     });
 
     const { result } = renderHook(() => useFetchMinMaxDate());

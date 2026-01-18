@@ -35,6 +35,8 @@ export interface NegativePricePeriod {
 export interface DateRange {
   minDate: string | "minimiPvm";
   maxDate: string | "maximiPvm";
+  minDateRaw: string;
+  maxDateRaw: string;
 }
 
 // Fetches all electricitydata for a specific date

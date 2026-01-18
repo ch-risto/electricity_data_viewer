@@ -120,6 +120,8 @@ describe("fetchMinMaxDaterange", () => {
     const mockDateRange = {
       minDate: "2024-01-01",
       maxDate: "2024-12-31",
+      minDateRaw: "2024-01-01",
+      maxDateRaw: "2024-12-31",
     };
     vi.mocked(fetchMinMaxDaterange).mockResolvedValue(mockDateRange);
     const result = await fetchMinMaxDaterange();

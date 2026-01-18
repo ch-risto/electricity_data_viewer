@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import chLogo from "/ch_white.png";
 import {
   Body,
@@ -32,6 +32,12 @@ function App() {
   } = useFetchElectricityData(date);
   const { dateRange } = useFetchMinMaxDate();
 
+  useEffect(() => {
+    if (dateRange.maxDateRaw && !date) {
+      setDate(dateRange.maxDateRaw);
+    }
+  }, [dateRange, date]);
+
   return (
     <Body>
       <div>
@@ -50,6 +56,8 @@ function App() {
       </div>
       <Input
         type="date"
+        min={dateRange.minDateRaw ?? ""}
+        max={dateRange.maxDateRaw ?? ""}
         value={date ?? ""}
         onChange={(e) => {
           setDate(e.target.value);

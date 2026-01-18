@@ -53,6 +53,10 @@ export const Table = styled.table`
   td {
     padding: 3px 15px;
   }
+  td {
+    color: #c9c9c9;
+  }
+  width: 100%;
 `;
 
 export const Footer = styled.div`

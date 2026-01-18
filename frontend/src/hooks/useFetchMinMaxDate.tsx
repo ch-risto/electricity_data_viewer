@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { DateRange, fetchMinMaxDaterange } from "../api/dataService";
 import { formatDateFromDate } from "../utils/dateUtils";
+
 // Hook to fetch the minimun and maximun date range
 export const useFetchMinMaxDate = () => {
   // State variable for fetchet data
   const [dateRange, setDateRange] = useState<DateRange>({
     minDate: "",
     maxDate: "",
+    minDateRaw: "",
+    maxDateRaw: "",
   });
 
   useEffect(() => {
@@ -20,6 +23,8 @@ export const useFetchMinMaxDate = () => {
         setDateRange({
           minDate: formatDateFromDate(fetchedDateRange.minDate),
           maxDate: formatDateFromDate(fetchedDateRange.maxDate),
+          minDateRaw: fetchedDateRange.minDate,
+          maxDateRaw: fetchedDateRange.maxDate,
         });
       } catch (error: unknown) {
         console.error("Error loading data:", error);
