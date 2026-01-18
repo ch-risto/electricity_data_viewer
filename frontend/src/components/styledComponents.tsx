@@ -22,6 +22,14 @@ export const Logo = styled.img`
   &:hover {
     filter: drop-shadow(0 0 2em #f9f9ffaa);
   }
+
+  @media (prefers-color-scheme: light) {
+    filter: drop-shadow(0 0 0.75em #222222aa);
+
+    &:hover {
+      filter: drop-shadow(0 0 2em #222222ff);
+    }
+  }
 `;
 
 export const Title = styled.h1`
@@ -57,6 +65,12 @@ export const Table = styled.table`
     color: #c9c9c9;
   }
   width: 100%;
+
+  @media (prefers-color-scheme: light) {
+    td {
+      color: #555;
+    }
+  }
 `;
 
 export const Footer = styled.div`
