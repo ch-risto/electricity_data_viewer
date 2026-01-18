@@ -129,5 +129,5 @@ class ElectricitySaService(ElectricityServiceBase):
             return ElectricityDateRangeDto(
                 minDate=result.min_date, maxDate=result.max_date
             )
-        except Exception as e:
-            logger.debug(f"Error fetching {traceback.format_exc(e.__traceback__)}")
+        except Exception:
+            logger.debug(f"Error fetching {traceback.format_exc()}")
