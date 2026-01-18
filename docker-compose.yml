@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 5432:5432
-  
+
   adminer:
     image: adminer
     restart: always

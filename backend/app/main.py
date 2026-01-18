@@ -10,9 +10,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     # Allows all origins, can be restricted for security (e.g. ["http://localhost:5173"])
-    allow_origins=[
-        "*"
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     # Allows all HTTP methods (GET, POST, PUT, etc.)
     allow_methods=["*"],
@@ -27,5 +25,5 @@ async def root():
     return {"message": "Hello, React!"}
 
 
-#Include Electricity router for handling electricity-related routes
+# Include Electricity router for handling electricity-related routes
 app.include_router(electricity.router)

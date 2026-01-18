@@ -21,14 +21,14 @@ router = APIRouter(prefix="/electricity", tags=["electricity data"])
 
 @router.get("/limit/{limit}")
 async def get_all(limit: int, service: ElectricityService) -> List[ElectricityDataDto]:
-    """Fetches limitet number of electricity data entries."""
+    """Fetches limited number of electricity data entries."""
     result = service.get_all(limit)
     return [ElectricityDataDto.model_validate(r) for r in result]
 
 
 @router.get("/by_date/{date}")
 async def get_by_date(date, service: ElectricityService) -> ElectricityDataListByDayDto:
-    """Fethces electricity data for a specific date."""
+    """Fetches electricity data for a specific date."""
     result = service.get_by_date(date)
     if not result:
         raise HTTPException(

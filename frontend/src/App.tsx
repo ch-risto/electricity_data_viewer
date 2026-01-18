@@ -1,34 +1,56 @@
-
-import { useState } from 'react'
-import chLogo from '/ch_white.png'
-import { Body, Input, Logo, Title, ResponseContainer, Response, Footer, Table } from './components/styledComponents'
-import { useFetchElectricityData } from './hooks/useFetchElectricityData.tsx'
-import { useFetchMinMaxDate } from './hooks/useFetchMinMaxDate.tsx';
-import { formatDateFromDate, formatTimeFromDatetime } from './utils/dateUtils.tsx';
-import { kWhToMWh } from './utils/electricityUtils.tsx';
+import { useState } from "react";
+import chLogo from "/ch_white.png";
+import {
+  Body,
+  Input,
+  Logo,
+  Title,
+  ResponseContainer,
+  Response,
+  Footer,
+  Table,
+} from "./components/styledComponents";
+import { useFetchElectricityData } from "./hooks/useFetchElectricityData.tsx";
+import { useFetchMinMaxDate } from "./hooks/useFetchMinMaxDate.tsx";
+import {
+  formatDateFromDate,
+  formatTimeFromDatetime,
+} from "./utils/dateUtils.tsx";
+import { kWhToMWh } from "./utils/electricityUtils.tsx";
 
 function App() {
   // state to hold selected date for fetching data
   const [date, setDate] = useState<string | null>(null);
 
-  // Custom hooks to fetch electricity data
-  const { data, summaryData, negativePricePeriod, loading, error, errorMessage } = useFetchElectricityData(date);
+  const {
+    data,
+    summaryData,
+    negativePricePeriod,
+    loading,
+    error,
+    errorMessage,
+  } = useFetchElectricityData(date);
   const { dateRange } = useFetchMinMaxDate();
 
   return (
     <Body>
       <div>
-        <a href="https://christaeloranta.fi" target="_blank">
+        <a
+          href="https://christaeloranta.fi"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Logo src={chLogo} alt="ch logo" />
         </a>
       </div>
       <Title>Check Electricity data</Title>
       <div>
-        There is electricitydata available from {dateRange.minDate} to {dateRange.maxDate}.
+        There is electricitydata available from {dateRange.minDate} to{" "}
+        {dateRange.maxDate}.
       </div>
       <Input
-        type='date'
-        value={date ?? ''}
+        type="date"
+        value={date ?? ""}
         onChange={(e) => {
           setDate(e.target.value);
         }}
@@ -41,41 +63,58 @@ function App() {
       {data && summaryData ? (
         <ResponseContainer>
           <Table>
-            <tr><th>Summary for the day {formatDateFromDate(data.date)}</th></tr>
-            <tr>
-              <th>Total consumption:</th><td>{kWhToMWh(summaryData.total_consumption)}</td>
-            </tr>
-            <tr>
-              <th>Total production:</th><td>{kWhToMWh(summaryData.total_production)}</td>
-            </tr>
-            <tr>
-              <th>Average hourly price:</th><td>{Number(summaryData.avg_price).toFixed(2)} €</td>
-            </tr>
-            {negativePricePeriod ? (
-              negativePricePeriod.duration_hours && negativePricePeriod.duration_hours > 0 ? (
-                <>
+            <thead>
+              <tr>
+                <th>Summary for the day {formatDateFromDate(data.date)}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Total consumption:</th>
+                <td>{kWhToMWh(summaryData.total_consumption)}</td>
+              </tr>
+              <tr>
+                <th>Total production:</th>
+                <td>{kWhToMWh(summaryData.total_production)}</td>
+              </tr>
+              <tr>
+                <th>Average hourly price:</th>
+                <td>{Number(summaryData.avg_price).toFixed(2)} €</td>
+              </tr>
+              {negativePricePeriod ? (
+                negativePricePeriod.duration_hours &&
+                negativePricePeriod.duration_hours > 0 ? (
+                  <>
+                    <tr>
+                      <td>
+                        Longest period of negative price for the day was{" "}
+                        {negativePricePeriod.duration_hours} hours
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        starting at{" "}
+                        {formatTimeFromDatetime(negativePricePeriod.start_time)}{" "}
+                        and average of{" "}
+                        {negativePricePeriod.avg_price
+                          ? Number(negativePricePeriod.avg_price).toFixed(2)
+                          : 0}
+                        €
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                    </tr>
+                  </>
+                ) : (
                   <tr>
                     <td>
-                      Longest period of negative price for the day was {negativePricePeriod.duration_hours} hours
+                      There were no negative electricity prices on this day
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      starting at {formatTimeFromDatetime(negativePricePeriod.start_time)} and average of {negativePricePeriod.avg_price ? Number(negativePricePeriod.avg_price).toFixed(2) : 0}€
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-
-                    </td>
-                  </tr>
-                </>
-              ) : (
-                <tr>
-                  <td>There were no negative electricity prices on this day</td>
-                </tr>
-              )
-            ) : null}
+                )
+              ) : null}
+            </tbody>
           </Table>
           <Table>
             <thead>
@@ -97,15 +136,16 @@ function App() {
               ))}
             </tbody>
           </Table>
-        </ResponseContainer >
-      ) : null
-      }
+        </ResponseContainer>
+      ) : null}
       <Footer>
-        This app is made as a pre-assignment for Solita Dev Academy Finland January 2025.<br />
+        This app is made as a pre-assignment for Solita Dev Academy Finland
+        January 2025.
+        <br />
         Christa Eloranta
       </Footer>
-    </Body >
+    </Body>
   );
 }
 
-export default App
+export default App;
