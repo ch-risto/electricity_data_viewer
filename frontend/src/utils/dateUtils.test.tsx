@@ -22,6 +22,8 @@ describe("dateUtils", () => {
   });
 
   it("should format time from datetime", () => {
+    // 14:30 UTC is 17:30 in Helsinki (EEST, UTC+3) in June
+    // for frontend CI environment, TZ is set to Europe/Helsinki
     const result = formatTimeFromDatetime("2024-06-15T14:30:00Z");
     expect(result).toBe("17.30");
   });
