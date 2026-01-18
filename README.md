@@ -93,18 +93,18 @@ Response Example:
 
 ## 2026 pre-assignment
 
-As the 2026 pre-assignment was the same as last year, I decided to take this as an learning opportunity to improve my skills in testing and cloud infrastructures. I also improved DevOps implementing GitHub Workflow to the project.
+As the 2026 pre-assignment was the same as last year, I decided to take this as an learning opportunity to improve my skills in testing and cloud infrastructures. I also improved DevOps implementing GitHub Workflows for both backend and frontend.
 
 ### CI/CD
 
+- **Backend workflow**: runs pre-commit/ruff, installs dependencies, and executes pytest.
+- **Frontend workflow**: installs dependencies, runs ESLint and runs Vitest in CI.
+
 ### Testing
 
-#### PyTest
-
-For backend, tests are written for pytest. The goal was not to cover everything, but get a good impression of what automation testing is all about and grasp knowledge of few different type of tests. AI was used to help to gain knowledge of good practices and different methods.
+- **Backend**: PyTest (unit + integration) to cover the FastAPI services and controllers
+- **Frontend**: Vitest + React Testing Library; hooks and components are covered, with global fetch mocked to avoid real API calls.
 
 ### Use of AI
 
-GitHub Copilot (Claude Haiku 4.5, Claude Sonnet 4.5) has been used while developing this project. I used Agent mode, but just so Copilot would get hinge of the project structure to be able to give me the best suggestions. I took this excercise as a learning opportunity to dive deeper in technologies I used, so I kept asking "dump questions" and different approaches before settling to something. All new code is reviewed and implemented by me.
-
-Copilot was also used in debugging and formatting.
+GitHub Copilot (Claude Haiku 4.5, Claude Sonnet 4.5) has been used while developing this project. I used Agent mode, but just so Copilot would get hinge of the project structure to be able to give me the best suggestions. I took this excercise as a learning opportunity to dive deeper in technologies I used, so I kept asking "dump questions" and different approaches before settling to something. All new code is reviewed and implemented by me. Copilot was also used in debugging and formatting.
