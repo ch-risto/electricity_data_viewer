@@ -1,5 +1,6 @@
 // Base URL for the electricity-related API endpoints
-const BASE_URL = "http://localhost:8000/electricity";
+const BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:8000/electricity";
 
 // Interface for individual electricity data points
 export interface ElectricityData {

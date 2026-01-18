@@ -1,5 +1,6 @@
 // Format date string to Finnish locale date string
-export const formatDateFromDate = (dateStr: string): string => {
+export const formatDateFromDate = (dateStr: string | null): string => {
+  if (!dateStr) return "-";
   const date = new Date(dateStr);
   return date.toLocaleDateString("fi-FI", {
     day: "numeric",

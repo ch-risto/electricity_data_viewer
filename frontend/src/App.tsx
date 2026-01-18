@@ -35,7 +35,11 @@ function App() {
   return (
     <Body>
       <div>
-        <a href="https://christaeloranta.fi" target="_blank">
+        <a
+          href="https://christaeloranta.fi"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Logo src={chLogo} alt="ch logo" />
         </a>
       </div>
@@ -59,52 +63,58 @@ function App() {
       {data && summaryData ? (
         <ResponseContainer>
           <Table>
-            <tr>
-              <th>Summary for the day {formatDateFromDate(data.date)}</th>
-            </tr>
-            <tr>
-              <th>Total consumption:</th>
-              <td>{kWhToMWh(summaryData.total_consumption)}</td>
-            </tr>
-            <tr>
-              <th>Total production:</th>
-              <td>{kWhToMWh(summaryData.total_production)}</td>
-            </tr>
-            <tr>
-              <th>Average hourly price:</th>
-              <td>{Number(summaryData.avg_price).toFixed(2)} €</td>
-            </tr>
-            {negativePricePeriod ? (
-              negativePricePeriod.duration_hours &&
-              negativePricePeriod.duration_hours > 0 ? (
-                <>
+            <thead>
+              <tr>
+                <th>Summary for the day {formatDateFromDate(data.date)}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Total consumption:</th>
+                <td>{kWhToMWh(summaryData.total_consumption)}</td>
+              </tr>
+              <tr>
+                <th>Total production:</th>
+                <td>{kWhToMWh(summaryData.total_production)}</td>
+              </tr>
+              <tr>
+                <th>Average hourly price:</th>
+                <td>{Number(summaryData.avg_price).toFixed(2)} €</td>
+              </tr>
+              {negativePricePeriod ? (
+                negativePricePeriod.duration_hours &&
+                negativePricePeriod.duration_hours > 0 ? (
+                  <>
+                    <tr>
+                      <td>
+                        Longest period of negative price for the day was{" "}
+                        {negativePricePeriod.duration_hours} hours
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        starting at{" "}
+                        {formatTimeFromDatetime(negativePricePeriod.start_time)}{" "}
+                        and average of{" "}
+                        {negativePricePeriod.avg_price
+                          ? Number(negativePricePeriod.avg_price).toFixed(2)
+                          : 0}
+                        €
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                    </tr>
+                  </>
+                ) : (
                   <tr>
                     <td>
-                      Longest period of negative price for the day was{" "}
-                      {negativePricePeriod.duration_hours} hours
+                      There were no negative electricity prices on this day
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      starting at{" "}
-                      {formatTimeFromDatetime(negativePricePeriod.start_time)}{" "}
-                      and average of{" "}
-                      {negativePricePeriod.avg_price
-                        ? Number(negativePricePeriod.avg_price).toFixed(2)
-                        : 0}
-                      €
-                    </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                  </tr>
-                </>
-              ) : (
-                <tr>
-                  <td>There were no negative electricity prices on this day</td>
-                </tr>
-              )
-            ) : null}
+                )
+              ) : null}
+            </tbody>
           </Table>
           <Table>
             <thead>
