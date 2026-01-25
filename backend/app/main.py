@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,11 +7,14 @@ from app.controllers import electricity
 # Initializes the FastAPI application
 app = FastAPI()
 
+origins_str = os.getenv("ORIGINS")
+origins = [origin.strip() for origin in origins_str.split(",")]
+
 # Adds CORS middleware to allow cross-origin requests
 app.add_middleware(
     CORSMiddleware,
     # Allows all origins, can be restricted for security (e.g. ["http://localhost:5173"])
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     # Allows all HTTP methods (GET, POST, PUT, etc.)
     allow_methods=["*"],
