@@ -9,7 +9,7 @@ $IMAGE_NAME = "electricity-backend"
 $TAG = "latest"
 
 $SA_EMAIL = "backend-identity@$PROJECT_ID.iam.gserviceaccount.com"
-$ORIGINS = "https://minun-frontend.vercel.app,http://localhost:5173"
+$ORIGINS = "https://electricity-data-viewer.vercel.app,http://localhost:5173"
 
 $IMAGE_FULL_PATH = "$REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/${IMAGE_NAME}:$TAG"
 
