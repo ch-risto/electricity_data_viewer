@@ -7,9 +7,10 @@ $REPO_NAME = "app-images"
 $SERVICE_NAME = "electricity-backend"
 $IMAGE_NAME = "electricity-backend"
 $TAG = "latest"
+$FRONTEND_URL = "https://electricity-data-viewer.christaeloranta.fi"
 
 $SA_EMAIL = "backend-identity@$PROJECT_ID.iam.gserviceaccount.com"
-$ORIGINS = "https://electricity-data-viewer.vercel.app,http://localhost:5173"
+$ORIGINS = "$FRONTEND_URL,http://localhost:5173"
 
 $IMAGE_FULL_PATH = "$REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/${IMAGE_NAME}:$TAG"
 
@@ -18,6 +19,7 @@ Write-Host "TARKISTETAAN MUUTTUJAT:"
 Write-Host "1. Project ID:  '$PROJECT_ID'"
 Write-Host "2. Image Name:  '$IMAGE_NAME'"
 Write-Host "3. Full Path:   '$IMAGE_FULL_PATH'"
+Write-Host "4. Frontend URL: '$FRONTEND_URL'"
 Write-Host "--------------------------------" -ForegroundColor Yellow
 
 # --- 1. BUILD ---
