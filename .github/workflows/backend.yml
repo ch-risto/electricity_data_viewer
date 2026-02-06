@@ -1,7 +1,7 @@
 name: Backend CI
 on:
     push:
-        branches: [ main, dev ]
+        branches: [ main ]
         paths:
             - 'backend/**'
     pull_request:
@@ -37,3 +37,4 @@ jobs:
               run: pytest
               env:
                 SQLALCHEMY_DATABASE_URL: sqlite:///:memory
+                ORIGINS: "http://localhost:3000,https://myapp.vercel.app"
