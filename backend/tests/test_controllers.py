@@ -48,7 +48,7 @@ class TestElectricityEndpoints:
             ),
         ]
 
-        response = client.get("/electricity/by_date/2024-01-01")
+        response = client.get("/electricity/by-date/2024-01-01")
 
         assert response.status_code == 200
         response_data = response.json()
@@ -65,13 +65,13 @@ class TestElectricityEndpoints:
 
         mock_electricity_service.get_by_date.return_value = []
 
-        response = client.get("/electricity/by_date/2099-12-31")
+        response = client.get("/electricity/by-date/2099-12-31")
 
         assert response.status_code == 404
         assert "not found" in response.json()["detail"].lower()
 
     def test_get_summary_by_date_endpoint(self, client, mock_electricity_service):
-        """Test /electricity/electricity_summary/{date} endpoint."""
+        """Test /electricity/electricity-summary/{date} endpoint."""
 
         mock_summary = Mock()
         mock_summary.total_consumption = 300.0
@@ -80,7 +80,7 @@ class TestElectricityEndpoints:
 
         mock_electricity_service.get_summary_by_date.return_value = mock_summary
 
-        response = client.get("/electricity/electricity_summary/2024-01-01")
+        response = client.get("/electricity/electricity-summary/2024-01-01")
 
         assert response.status_code == 200
         data = response.json()
@@ -89,9 +89,9 @@ class TestElectricityEndpoints:
         assert data["avg_price"] == "2.5"
 
     def test_negative_price_period_endpoint(self, client):
-        """Test /electricity/negative_price_period/{date} endpoint."""
+        """Test /electricity/negative-price-period/{date} endpoint."""
 
-        response = client.get("/electricity/negative_price_period/2024-01-15")
+        response = client.get("/electricity/negative-price-period/2024-01-15")
 
         assert response.status_code in [200, 404]
         if response.status_code == 200:

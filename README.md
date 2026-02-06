@@ -76,7 +76,7 @@ Swagger UI: http://localhost:8000/docs#/
 ### Fetch electricity data for a specific date
 
 ```http
-GET /electricity/by_date/YYYY-MM-DD
+GET /electricity/by-date/YYYY-MM-DD
 ```
 
 Response Example:

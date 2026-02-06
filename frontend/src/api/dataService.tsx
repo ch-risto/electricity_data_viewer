@@ -45,7 +45,7 @@ export const fetchAllDataByDate = async (
 ): Promise<ElectricityDataList> => {
   try {
     console.log("Trying to fetch data");
-    const response = await fetch(`${BASE_URL}/by_date/${date}`);
+    const response = await fetch(`${BASE_URL}/by-date/${date}`);
     console.log(response);
 
     // Errorhandling for response
@@ -71,7 +71,7 @@ export const fetchSummaryDataByDate = async (
   date: string,
 ): Promise<ElectricityDataSummary> => {
   try {
-    const response = await fetch(`${BASE_URL}/electricity_summary/${date}`);
+    const response = await fetch(`${BASE_URL}/electricity-summary/${date}`);
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -94,7 +94,7 @@ export const fetchNegativePricePeriod = async (
   date: string,
 ): Promise<NegativePricePeriod> => {
   try {
-    const response = await fetch(`${BASE_URL}/negative_price_period/${date}`);
+    const response = await fetch(`${BASE_URL}/negative-price-period/${date}`);
     if (!response.ok) {
       if (response.status === 404) {
         throw new Error("Data for the day was not found");
@@ -112,7 +112,7 @@ export const fetchNegativePricePeriod = async (
 // Fetches the min and max date range for the API
 export const fetchMinMaxDaterange = async (): Promise<DateRange> => {
   try {
-    const response = await fetch(`${BASE_URL}/date_range`);
+    const response = await fetch(`${BASE_URL}/date-range`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

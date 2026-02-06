@@ -20,6 +20,7 @@ Write-Host "1. Project ID:  '$PROJECT_ID'"
 Write-Host "2. Image Name:  '$IMAGE_NAME'"
 Write-Host "3. Full Path:   '$IMAGE_FULL_PATH'"
 Write-Host "4. Frontend URL: '$FRONTEND_URL'"
+Write-Host "5. Allowed Origins: '$ORIGINS'"
 Write-Host "--------------------------------" -ForegroundColor Yellow
 
 # --- 1. BUILD ---
