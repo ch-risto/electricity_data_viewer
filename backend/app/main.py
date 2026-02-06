@@ -7,8 +7,11 @@ from app.controllers import electricity
 # Initializes the FastAPI application
 app = FastAPI()
 
-origins_str = os.getenv("ORIGINS")
-origins = [origin.strip() for origin in origins_str.split(",")]
+origins_str = os.getenv("ORIGINS", "")
+if origins_str:
+    origins = [origin.strip() for origin in origins_str.split(",")]
+else:
+    origins = []
 
 vercel_regex = r"https://*\.vercel\.app"
 

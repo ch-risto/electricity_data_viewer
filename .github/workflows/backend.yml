@@ -37,3 +37,4 @@ jobs:
               run: pytest
               env:
                 SQLALCHEMY_DATABASE_URL: sqlite:///:memory
+                ORIGINS: "http://localhost:3000,https://myapp.vercel.app"
