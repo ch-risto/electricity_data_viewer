@@ -150,7 +150,14 @@ function App() {
         This app is made as a pre-assignment for Solita Dev Academy Finland
         January 2025.
         <br />
-        Christa Eloranta
+        Christa Eloranta -{" "}
+        <a
+          href="https://github.com/ch-risto/electricity_data_viewer"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
       </Footer>
     </Body>
   );
